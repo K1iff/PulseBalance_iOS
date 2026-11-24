@@ -1,3 +1,60 @@
 # PulseBalance_iOS
 
-A brief description of what this project does and who it's for.
+PulseBalance is a SwiftUI-based iOS application designed to help users, particularly students, predict and understand their stress levels by analyzing daily lifestyle factors, academic habits, and digital behavior. It leverages a local CoreML model to provide personalized stress assessments and actionable recommendations, all while prioritizing user privacy with on-device data storage and authentication.
+
+## Features
+
+-   **ML-Powered Stress Prediction:** Utilizes a built-in CoreML model (`GamingPerformanceModel.mlmodel`) to predict stress levels (Low, Moderate, High) based on 11 lifestyle and performance inputs.
+-   **Data-Driven Insights:** Presents visualizations showing the correlation between key factors—like sleep duration, study hours, and device usage—and predicted stress levels.
+-   **Secure Local Authentication:** Features an on-device account system using SwiftData. Passwords are never transmitted and are stored securely using a salted SHA-256 hash.
+-   **Persistent Checkup History:** Automatically saves each stress prediction to a local history, allowing users to track their well-being over time.
+-   **Customizable Appearance:** Includes full support for Light Mode, Dark Mode, and System-based themes.
+-   **Advanced Accessibility:** Offers multiple color vision filters (Protanopia, Deuteranopia, Tritanopia, Monochrome) that adapt the entire app's color palette for users with color blindness.
+
+## How It Works
+
+1.  **Local Account:** The user creates a secure, on-device account. All data, including credentials and checkup history, is stored locally using SwiftData.
+2.  **Input Metrics:** In the "Checkup" tab, the user provides input across several categories:
+    -   **Personal:** Age, Gender
+    -   **Lifestyle:** Daily study/work hours, sleep hours, social activity
+    -   **Digital Habits:** Primary gaming genre, daily device usage, gaming intensity
+    -   **Performance:** Academic grades, schedule consistency, reaction time
+3.  **Prediction:** The app feeds the input array into the `GamingPerformanceModel` CoreML model.
+4.  **Analysis:** The model returns a predicted stress tier (Low, Moderate, or High) along with class probabilities.
+5.  **Results & Recommendations:** The app displays the result with a confidence score, a probability breakdown, and a list of actionable recommendations tailored to the predicted stress level. The result is then saved to the user's local history.
+
+## Technology Stack
+
+-   **UI Framework:** SwiftUI
+-   **Data Persistence:** SwiftData
+-   **Machine Learning:** CoreML
+-   **Security:** CryptoKit (for SHA-256 password hashing)
+-   **Charting:** Swift Charts
+
+## Project Structure
+
+The project is organized using a feature-based MVVM architecture.
+
+```
+PulseBalance/
+├── App/                # App entry point, main TabView, and root container
+├── Models/             # Data models (SwiftData, ML I/O, App Preferences)
+├── Resources/          # Assets catalog and the CoreML model
+├── Services/           # Business logic (Auth, ML Prediction, Hashing)
+├── ViewModels/         # State management and logic for views
+└── Views/              # SwiftUI views organized by feature
+    ├── Auth/           # Splash, Sign In/Up screens
+    ├── Insights/       # Charts and data visualizations
+    ├── Prediction/     # Main checkup form and result display
+    └── Settings/       # Account, Appearance, and History settings
+```
+
+## Getting Started
+
+1.  Clone the repository:
+    ```bash
+    git clone https://github.com/k1iff/pulsebalance_ios.git
+    ```
+2.  Open `PulseBalance.xcodeproj` in Xcode.
+3.  Select a target simulator or a connected physical device.
+4.  Build and run the project (⌘+R).
