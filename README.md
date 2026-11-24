@@ -1,4 +1,4 @@
-# PulseBalance_iOS
+# Pulse Balance
 
 PulseBalance is a SwiftUI-based iOS application designed to help users, particularly students, predict and understand their stress levels by analyzing daily lifestyle factors, academic habits, and digital behavior. It leverages a local CoreML model to provide personalized stress assessments and actionable recommendations, all while prioritizing user privacy with on-device data storage and authentication.
 
