@@ -1,101 +1,160 @@
-# Pulse Balance 🫀
+# Pulse Balance
 
-PulseBalance is a SwiftUI-based iOS application designed to help users, particularly students, predict and understand their stress levels by analyzing daily lifestyle factors, academic habits, and digital behavior. It leverages a local CoreML model to provide personalized stress assessments and actionable recommendations, all while prioritizing user privacy with on-device data storage and authentication.
+A native iOS wellness and performance analytics application built with SwiftUI and Core ML that predicts user stress levels and visualizes lifestyle insights for gamers and everyday users.
 
-[![Swift](https://img.shields.io/badge/Swift-5.7-orange?style=for-the-badge&logo=swift)]() [![SwiftData](https://img.shields.io/badge/SwiftData-supported-blue?style=for-the-badge)]() [![CoreML](https://img.shields.io/badge/CoreML-integrated-brightgreen?style=for-the-badge)]()
-
-## 🚀 Features
-
--   **ML-Powered Stress Prediction** 🧠: Utilizes a built-in CoreML model (`GamingPerformanceModel.mlmodel`) to predict stress levels (Low, Moderate, High) based on 11 lifestyle and performance inputs.
--   **Data-Driven Insights** 📊: Presents visualizations showing the correlation between key factors—like sleep duration, study hours, and device usage—and predicted stress levels.
--   **Secure Local Authentication** 🔒: Features an on-device account system using SwiftData. Passwords are never transmitted and are stored securely using a salted SHA-256 hash.
--   **Persistent Checkup History** 📜: Automatically saves each stress prediction to a local history, allowing users to track their well-being over time.
--   **Customizable Appearance** ✨: Includes full support for Light Mode, Dark Mode, and System-based themes.
--   **Advanced Accessibility** ♿: Offers multiple color vision filters (Protanopia, Deuteranopia, Tritanopia, Monochrome) that adapt the entire app's color palette for users with color blindness.
-
-## ⚙️ How It Works
-
-1.  **Local Account** 👤: The user creates a secure, on-device account. All data, including credentials and checkup history, is stored locally using SwiftData.
-2.  **Input Metrics** 📝: In the "Checkup" tab, the user provides input across several categories:
-    *   **Personal:** Age, Gender
-    *   **Lifestyle:** Daily study/work hours, sleep hours, social activity
-    *   **Digital Habits:** Primary gaming genre, daily device usage, gaming intensity
-    *   **Performance:** Academic grades, schedule consistency, reaction time
-3.  **Prediction** 🔮: The app feeds the input array into the `GamingPerformanceModel` CoreML model.
-4.  **Analysis** 📈: The model returns a predicted stress tier (Low, Moderate, or High) along with class probabilities.
-5.  **Results & Recommendations** ✅: The app displays the result with a confidence score, a probability breakdown, and a list of actionable recommendations tailored to the predicted stress level. The result is then saved to the user's local history.
-
-## 🛠️ Technology Stack
-
--   **UI Framework:** SwiftUI
--   **Data Persistence:** SwiftData
--   **Machine Learning:** CoreML
--   **Security:** CryptoKit (for SHA-256 password hashing)
--   **Charting:** Swift Charts
-
-## 📂 Project Structure
-
-The project is organized using a feature-based MVVM architecture.
-
-```
-PulseBalance/
-├── App/                # App entry point, main TabView, and root container
-├── Models/             # Data models (SwiftData, ML I/O, App Preferences)
-├── Resources/          # Assets catalog and the CoreML model
-├── Services/           # Business logic (Auth, ML Prediction, Hashing)
-├── ViewModels/         # State management and logic for views
-└── Views/              # SwiftUI views organized by feature
-    ├── Auth/           # Splash, Sign In/Up screens
-    ├── Insights/       # Charts and data visualizations
-    ├── Prediction/     # Main checkup form and result display
-    └── Settings/       # Account, Appearance, and History settings
-```
-
-## 🚀 Getting Started
-
-1.  **Clone the repository:**
-    ```bash
-    git clone https://github.com/K1iff/PulseBalance_iOS.git
-    ```
-2.  **Open `PulseBalance.xcodeproj`** in Xcode.
-3.  Select a target simulator or a connected physical device.
-4.  **Build and run** the project (⌘+R).
-
-## 📚 Usage Examples
-
-*   **Perform a Stress Checkup:** Navigate to the "Checkup" tab, input your daily lifestyle and academic data, and tap "Predict Stress Level" to get an immediate assessment and personalized recommendations.
-*   **Analyze Trends:** Visit the "Insights" tab to view charts and data visualizations that illustrate the correlation between various lifestyle factors and stress levels.
-*   **Customize Appearance:** In the "Settings" tab, adjust the app's color scheme (Light, Dark, System) and enable color vision filters for accessibility.
-*   **Manage Account:** The "Settings" tab also allows you to view your profile, check your recent history, and sign out.
-
-## ✨ Contributing
-
-Contributions are welcome! Please feel free to:
-
--   Fork the repository.
--   Create a new branch for your feature (`git checkout -b feature/AmazingFeature`).
--   Commit your changes (`git commit -m 'Add some AmazingFeature'`).
--   Push to the branch (`git push origin feature/AmazingFeature`).
--   Open a Pull Request.
-
-Please ensure your code adheres to the existing style and conventions.
-
-## 📜 License
-
-No license information was provided for this repository.
-
-## 🔗 Important Links
-
-*   **Repository:** [PulseBalance_iOS](https://github.com/K1iff/PulseBalance_iOS)
+![Platform](https://img.shields.io/badge/Platform-iOS%2016.0%2B-000000?style=for-the-badge&logo=apple&logoColor=white)
+![Language](https://img.shields.io/badge/Swift-5.9-F05138?style=for-the-badge&logo=swift&logoColor=white)
+![Framework](https://img.shields.io/badge/Framework-SwiftUI-007AFF?style=for-the-badge&logo=swift&logoColor=white)
+![ML Engine](https://img.shields.io/badge/ML-Core%20ML-34C759?style=for-the-badge&logo=apple&logoColor=white)
+![Architecture](https://img.shields.io/badge/Architecture-MVVM-5856D6?style=for-the-badge)
 
 ---
 
-### 🌟 Show your support!
+## Features
 
-Give a ⭐️ if this project helped you!
-
-Made with ❤️ by [K1iff](https://github.com/K1iff)
-
+* **On-Device Stress Prediction:** Evaluates lifestyle, sleep, and gaming performance metrics locally using Core ML (`GamingPerformanceModel.mlmodel`) to generate real-time stress predictions without external server latency.
+* **Interactive Wellness Insights:** Visualizes historical trends and biometric/lifestyle correlations through custom SwiftUI insight cards and charts (`InsightsChartCard`).
+* **Secure Local Authentication:** Provides splash onboarding, account registration, and credential validation backed by cryptographic hashing (`SecurityHasher` & `AuthService`).
+* **Customizable App Preferences:** Allows users to manage account details, reset prediction history, and tailor tracking settings via `SettingsView`.
+* **Clean Tabbed Navigation:** Organizes Prediction, Insights, and Settings into an intuitive native tab interface (`MainTabView`).
 
 ---
-**<p align="center">Generated by [ReadmeCodeGen](https://www.readmecodegen.com/)</p>**
+
+## How it Works
+
+PulseBalance follows a clean **MVVM (Model–View–ViewModel)** architecture paired with a local service layer:
+
+1. **Authentication Flow:** On launch, `PulseBalanceApp` displays `SplashView` and routes unauthenticated users to `AuthView`. `AuthViewModel` delegates credential hashing and persistence to `AuthService` and `SecurityHasher`.
+2. **Input & Inference:** Inside `PredictionView`, users log daily habits and performance indicators (`StressPredictionInput`). `PredictionViewModel` passes these inputs to `StressPredictionService`, which runs on-device inference against `GamingPerformanceModel.mlmodel` and returns a structured `StressPredictionResult`.
+3. **Analytics & Visualization:** `InsightsViewModel` aggregates prediction metrics (`InsightMetric`) and renders visual summaries inside `InsightsView` using `InsightsChartCard`.
+
+---
+
+## Tech Stack
+
+* **Language:** Swift 5
+* **UI Framework:** SwiftUI
+* **Machine Learning:** Core ML (`GamingPerformanceModel.mlmodel`)
+* **Security & Storage:** CryptoKit / Local Hashing (`SecurityHasher`), `UserDefaults` / AppStorage (`AppPreferences`)
+* **Architecture:** MVVM (Model–View–ViewModel)
+* **IDE & Build System:** Xcode (`PulseBalance.xcodeproj`)
+
+---
+
+## Project Structure
+
+```text
+PulseBalance_iOS/
+├── PulseBalance.xcodeproj/             # Xcode project configuration and schemes
+├── PulseBalance/
+│   ├── App/
+│   │   ├── PulseBalanceApp.swift       # Application entry point & root state
+│   │   └── MainTabView.swift           # Primary bottom tab bar navigation
+│   ├── Models/
+│   │   ├── AppPreferences.swift        # Persistent user settings & preferences
+│   │   ├── InsightMetric.swift         # Data model for analytics charts
+│   │   ├── StressPredictionInput.swift # Input parameters for Core ML inference
+│   │   ├── StressPredictionResult.swift# Structured prediction output & recommendations
+│   │   └── UserAccount.swift           # User profile and credential model
+│   ├── Resources/
+│   │   ├── Assets.xcassets/            # AppIcon, AccentColor, and BrandLogo SVG
+│   │   └── GamingPerformanceModel.mlmodel # Pre-trained Core ML prediction model
+│   ├── Services/
+│   │   ├── AuthService.swift           # Account creation & session validation
+│   │   ├── SecurityHasher.swift        # Password hashing & security utilities
+│   │   └── StressPredictionService.swift # Core ML wrapper & scoring logic
+│   ├── ViewModels/
+│   │   ├── AuthViewModel.swift         # State management for login & registration
+│   │   ├── InsightsViewModel.swift     # Data aggregation for wellness charts
+│   │   └── PredictionViewModel.swift   # State management for stress predictions
+│   └── Views/
+│       ├── Auth/
+│       │   ├── SplashView.swift        # Branded launch screen
+│       │   └── AuthView.swift          # Login & sign-up interface
+│       ├── Insights/
+│       │   ├── InsightsView.swift      # Main analytics dashboard
+│       │   └── InsightsChartCard.swift # Reusable visual metric card
+│       ├── Prediction/
+│       │   ├── PredictionView.swift    # Interactive lifestyle/gaming input form
+│       │   └── PredictionResultCard.swift # Stress score & feedback display card
+│       └── Settings/
+│           └── SettingsView.swift      # User preferences & account controls
+└── README.md
+```
+
+---
+
+## Getting Started
+
+### Prerequisites
+
+* **macOS** 13.0 (Ventura) or later
+* **Xcode** 15.0 or later
+* **iOS Simulator** or physical iPhone running **iOS 16.0+**
+
+### Installation
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/k1iff/pulsebalance_ios.git
+   cd pulsebalance_ios
+   ```
+
+2. **Open the project in Xcode:**
+   ```bash
+   open PulseBalance.xcodeproj
+   ```
+
+3. **Select a target device:**
+   * In the top Xcode toolbar, choose an iOS Simulator (e.g., **iPhone 15 Pro**) or connect your physical iOS device.
+
+4. **Build and run:**
+   * Press `Cmd + R` (or click the **Run** button) to compile the app and launch it in the simulator.
+
+---
+
+## Usage Examples
+
+### Running a Stress Prediction
+1. Launch the app and create a local profile on the **Sign Up** screen (or log in with an existing account).
+2. Navigate to the **Prediction** tab.
+3. Adjust the sliders and input fields for your daily habits, sleep duration, and session metrics (`StressPredictionInput`).
+4. Tap **Analyze / Predict** to view your computed stress level and actionable wellness feedback inside `PredictionResultCard`.
+
+### Reviewing Wellness Trends
+1. Switch to the **Insights** tab in `MainTabView`.
+2. Inspect your aggregated `InsightMetric` cards to track changes in stress patterns over time.
+
+---
+
+## How to Contribute
+
+Contributions, bug reports, and feature suggestions are welcome!
+
+1. **Fork** the repository (`https://github.com/k1iff/pulsebalance_ios`).
+2. **Create a new feature branch:**
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
+3. **Commit your changes** with clear, descriptive messages:
+   ```bash
+   git commit -m "Add: description of your feature or fix"
+   ```
+4. **Push to your branch:**
+   ```bash
+   git push origin feature/your-feature-name
+   ```
+5. Open a **Pull Request** detailing your changes and any UI/model updates.
+
+---
+
+## Important Links
+
+* **Repository:** [github.com/k1iff/pulsebalance_ios](https://github.com/k1iff/pulsebalance_ios)
+* **Issue Tracker:** [github.com/k1iff/pulsebalance_ios/issues](https://github.com/k1iff/pulsebalance_ios/issues)
+* **Apple Core ML Documentation:** [developer.apple.com/documentation/coreml](https://developer.apple.com/documentation/coreml)
+* **SwiftUI Documentation:** [developer.apple.com/documentation/swiftui](https://developer.apple.com/documentation/swiftui)
+
+---
+
+Made by [k1iff](https://github.com/k1iff)
